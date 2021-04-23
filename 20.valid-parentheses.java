@@ -41,11 +41,11 @@ class Solution {
         return stack.size() == 0;
     }
 
-    public static void main(String []args) {
-        Solution s = new Solution();
-        s.isValid("()");
+    // public static void main(String []args) {
+    //     Solution s = new Solution();
+    //     s.isValid("()");
 
-    }
+    // }
 }
 // @lc code=end
 
