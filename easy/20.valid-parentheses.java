@@ -11,6 +11,10 @@ import java.util.HashMap;
 // @lc code=start
 class Solution {
     public boolean isValid(String s) {
+        if (s.length() % 2 == 1) {
+            return false;
+        }
+        
         ArrayList<String> stack = new ArrayList<String>();
         HashMap<String, String> brackets = new HashMap<String, String>() {
             {
