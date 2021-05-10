@@ -35,8 +35,8 @@ class Solution {
             inOrderMap.put(inorder[i], i);
         }
 
-        // return dfsBuild1(preorder, inorder);
-        return dfsBuild2(preorder, 0, preorder.length-1);
+        return dfsBuild1(preorder, inorder);
+        // return dfsBuild2(preorder, 0, preorder.length-1);
     }
     private TreeNode dfsBuild1(int[] preorder, int[] inorder) {
         if (preorder == null || preorder.length == 0) {
@@ -48,7 +48,13 @@ class Solution {
         TreeNode root = new TreeNode(preorder[0]);
 
         // get the location of this root in in-order array
-        int rootIndex = inOrderMap.get(preorder[0]);
+        int rootIndex = 0;
+        for (int i=0; i<inorder.length; i++) {
+            if (inorder[i] == preorder[0]) {
+                rootIndex = i;
+                break;
+            }
+        }
 
         // left sub tree: inorder[0, indexof(preorder[0]) - 1], right sub tree: inorder[indexof(preorder[0]) + 1, ..]
         if (rootIndex > 0) {
