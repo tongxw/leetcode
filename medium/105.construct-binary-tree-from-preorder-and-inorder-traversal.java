@@ -35,8 +35,9 @@ class Solution {
             inOrderMap.put(inorder[i], i);
         }
 
-        return dfsBuild1(preorder, inorder);
+        // return dfsBuild1(preorder, inorder);
         // return dfsBuild2(preorder, 0, preorder.length-1);
+        return dfsBuild3(preorder, 0, inorder, 0, inorder.length - 1);
     }
     private TreeNode dfsBuild1(int[] preorder, int[] inorder) {
         if (preorder == null || preorder.length == 0) {
@@ -83,6 +84,25 @@ class Solution {
         // excluding inorderIndexMap[rootValue] element because it's the root
         root.left = dfsBuild2(preorder, left, inOrderMap.get(rootValue) - 1);
         root.right = dfsBuild2(preorder, inOrderMap.get(rootValue) + 1, right);
+        return root;
+    }
+
+    private TreeNode dfsBuild3(int[] pre, int preRootIndex, int[] in, int inLeft, int inRight) {
+        if (inLeft > inRight) {
+            // no more nodes in array
+            return null;
+        }
+
+        int val = pre[preRootIndex];
+        TreeNode root = new TreeNode(val);
+        int rootIndexInorder = inOrderMap.get(val);
+
+        root.left = dfsBuild3(pre, preRootIndex + 1, in, inLeft, rootIndexInorder - 1);
+
+        int leftTreeLength = rootIndexInorder - inLeft;
+        int RightPreRootIndex = preRootIndex + rootIndexInorder - inLeft + 1;
+        root.right = dfsBuild3(pre, RightPreRootIndex, in, rootIndexInorder + 1, inRight);
+
         return root;
     }
 }

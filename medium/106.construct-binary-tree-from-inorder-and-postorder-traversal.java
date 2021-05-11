@@ -23,9 +23,14 @@ import java.util.Arrays;
  * }
  */
 class Solution {
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
+    private HashMap<Integer, Integer> inOrderMap = new HashMap<>();
 
-        return dfsBuild1(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        for (int i=0; i<inorder.length; i++) {
+            inOrderMap.put(inorder[i], i);
+        }
+        // return dfsBuild1(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+        return dfsBuild2(postorder, postorder.length - 1, inorder, 0, inorder.length - 1);
     }
 
     private TreeNode dfsBuild1(int[] inorder, int inorderStart, int inorderEnd,
@@ -65,6 +70,25 @@ class Solution {
             // root.left = dfsBuild1(lInorder, lPostorder);
             root.left = dfsBuild1(inorder, 0, rootIndex - 1, postorder, 0, rootIndex - 1);
         // }
+
+        return root;
+    }
+
+    private TreeNode dfsBuild2(int[] post, int postRootIndex, int [] in, int inLeft, int inRight) {
+        if (inLeft > inRight) {
+            return null;
+        }
+
+        int val = post[postRootIndex];
+        TreeNode root = new TreeNode(val);
+        int rootIndexInorder = inOrderMap.get(val);
+
+        int rightPostRootIndex = postRootIndex - 1;
+        root.right = dfsBuild2(post, rightPostRootIndex, in, rootIndexInorder + 1, inRight);
+
+        int rightTreeLength = inRight - rootIndexInorder;
+        int leftPostRootIndex = postRootIndex - 1 -rightTreeLength;
+        root.left = dfsBuild2(post, leftPostRootIndex, in, inLeft, rootIndexInorder - 1);
 
         return root;
     }

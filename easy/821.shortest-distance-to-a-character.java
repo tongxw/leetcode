@@ -32,7 +32,7 @@ class Solution {
         //     res[i] = min;
         // }
 
-        // // time: O(n), space O(n)
+        // // time: O(n2), space O(n)
         // return res;
 
         // Solution 2

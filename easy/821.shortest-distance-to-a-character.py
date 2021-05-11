@@ -9,7 +9,7 @@ class Solution:
     def shortestToChar(self, s: str, c: str) -> List[int]:
         res = []
 
-        c_pos = -10000 #s.length < 10^4
+        c_pos = -10000 #s.length <= 10^4
         i = 0
         for char in s:
             if char == c:
@@ -17,7 +17,7 @@ class Solution:
             res.append(i - c_pos)
             i = i + 1
         
-        c_pos = 10000 #s.length < 10^4
+        c_pos = 10000 #s.length <= 10^4
         i = i - 1
         for char in s[::-1]:
             if char == c:
