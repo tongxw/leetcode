@@ -1,8 +1,3 @@
-import java.util.Arrays;
-import java.util.HashSet;
-
-import javax.swing.tree.TreeNode;
-
 /*
  * @lc app=leetcode id=889 lang=java
  *
@@ -27,7 +22,6 @@ import javax.swing.tree.TreeNode;
  */
 class Solution {
     private HashMap<Integer, Integer> postOrderMap = new HashMap<>();
-    private HashSet<Integer> preOrderSet = new HashSet<>();
     public TreeNode constructFromPrePost(int[] pre, int[] post) {
         for (int i=0; i<post.length; i++) {
             postOrderMap.put(post[i], i);
@@ -72,55 +66,29 @@ class Solution {
         return root;
     }
 
-    private TreeNode dfsBuild1x(int[] pre, int preStart, int[] post, int postStart, int postLength) {
-        if (preLength == 0 || preStart >= pre.length) {
+    private TreeNode dfsBuild2(int[] pre, int preOrderRootIndex, int[] post, int postLeft, int postRight) {
+        if (postLeft > postRight || preOrderRootIndex > pre.length) {
             return null;
         }
 
-        int val = pre[preStart];
+        int val = pre[preOrderRootIndex];
         TreeNode root = new TreeNode(val);
-        if (preLength == 1) {
+        if (preOrderRootIndex + 1 >= pre.length || postLeft == postRight) {
             return root;
         }
 
-        int leftTreeRootPostIndex = 0;
-        for (; leftTreeRootPostIndex < postLength; leftTreeRootPostIndex++) {
-            if (post[leftTreeRootPostIndex] == val) {
-                break;
-            }
-        }
+        int valLeft = pre[preOrderRootIndex + 1];
+        int leftChildPostOrderIndex = postOrderMap.get(valLeft);
+        int leftTreelength = leftChildPostOrderIndex - postLeft + 1;
+        int rightPreOrderRootIndex = preOrderRootIndex + leftTreelength + 1;
 
-        root.left = dfsBuild1x(pre, preStart + 1, post, postLength)
-        
-    }
+        root.left = dfsBuild2(pre, preOrderRootIndex + 1, post, postLeft, leftChildPostOrderIndex);
+        root.right = dfsBuild2(pre, rightPreOrderRootIndex, post, leftChildPostOrderIndex + 1, postRight - 1);
 
-    // private TreeNode dfsBuild2(int[] pre, int preOrderRootIndex, int[] post, int postLeft, int postRight) {
-    //     if (postLeft > postRight || preOrderRootIndex > pre.length) {
-    //         return null;
-    //     }
-
-    //     int val = pre[preOrderRootIndex];
-    //     TreeNode root = new TreeNode(val);
-    //     if (preOrderRootIndex + 1 >= pre.length) {
-    //         return root;
-    //     }
-
-    //     int valLeft = pre[preOrderRootIndex + 1];
-    //     int leftChildPostOrderIndex = postOrderMap.get(valLeft);
-    //     int leftTreelength = leftChildPostOrderIndex - postLeft + 1;
-    //     int rightPreOrderRootIndex = preOrderRootIndex + leftTreelength + 1;
-
-    //     if (preOrderRootIndex + 1 > rightPreOrderRootIndex) {
-    //         return root;
-    //     }
-
-    //     root.left = dfsBuild2(pre, preOrderRootIndex + 1, post, postLeft, leftChildPostOrderIndex);
-    //     root.right = dfsBuild2(pre, rightPreOrderRootIndex, post, leftChildPostOrderIndex + 1, postRight - 1);
-
-    //     return root;
+        return root;
 
     //     // [2,1,3]\n[3,1,2]
-    // }
+    }
 }
 // @lc code=end
 
