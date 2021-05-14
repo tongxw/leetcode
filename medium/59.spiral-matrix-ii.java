@@ -13,31 +13,23 @@ class Solution {
         int count = 1;
 
         int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-        final int RIGHT = 0;
-        final int DOWN = 1;
-        final int LEFT = 2;
-        final int UP = 3;
 
         int row = 0;
         int col = 0;
-        int direction = RIGHT;
+        int direction = 0;
         while (count <= total) {
             res[row][col] = count++;
 
+            // try moving to the next grid, and change the direction if out of boundary or already filled
             int nextRow = row + directions[direction][0];
-            if (nextRow == n) {
-                direction = LEFT;
-            } else if (nextRow == -1) {
-                direction = RIGHT;
-            }
-            nextRow = row + directions[direction][0];
-
             int nextCol = col + directions[direction][1];
-            if (nextCol == n) {
-                direction = DOWN;
-            } else if (nextCol == -1) {
-                direction = UP;
+
+            if (nextRow < 0 || nextRow >= n || nextCol < 0 || nextCol >= n || res[nextRow][nextCol] != 0) {
+                direction = ++direction % 4;
             }
+
+            // re-calculate
+            nextRow = row + directions[direction][0];
             nextCol = col + directions[direction][1];
 
             row = nextRow;

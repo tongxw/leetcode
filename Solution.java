@@ -1,51 +1,62 @@
 import java.util.Stack;
 
 class Solution {
-    public String decodeString(String s) {
-        char[] chars = s.toCharArray();
-        Stack<String> stack = new Stack<>();
-        
-        for (char c: chars) {
-          if (c == ']') {
-              // pop
-              String topStr;
-            //   StringBuffer buffer = new StringBuffer(9000);
-            String tmpStr = "";
-              while (!"[".equals(topStr = stack.pop())) {
-                //   buffer.insert(0, topStr);
-                tmpStr = topStr + tmpStr;
-              }
+  public int[][] generateMatrix(int n) {
+    int[][] res = new int[n][n];
 
-            //   String tmp = buffer.toString();
-            String decodeStr = "";
-              int repeat = Integer.parseInt(stack.pop());
-              while (repeat != 0) {
-                //   buffer.append(tmp);
-                decodeStr += tmpStr;
-                  repeat--;
-              }
-            //   stack.push(buffer.toString());
-            stack.push(decodeStr);
-          } else {
-              stack.push(String.valueOf(c));
-          }
-      }
+    int total = n * n;
+    int count = 1;
 
-    //   StringBuffer res = new StringBuffer(9000);
-      String res = "";
-      while (stack.size() != 0) {
-        //   res.insert(0, stack.pop());
-          res = res + stack.pop();
-      }
+    int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    final int RIGHT = 0;
+    final int DOWN = 1;
+    final int LEFT = 2;
+    final int UP = 3;
 
-      // ""100[leetcode]""
-    //   return res.toString();
-      return res;
+    int row = 0;
+    int col = 0;
+    int direction = RIGHT;
+    int leftLimit = -1;
+    int rightLimit = n;
+    int upLimit = 0;
+    int downLimit = n;
+    while (count <= total) {
+        res[row][col] = count++;
+
+        // try moving to the next grid, and change the direction if meet the boundary
+        int nextRow = row + directions[direction][0];
+        int nextCol = col + directions[direction][1];
+
+        if (nextRow == downLimit) {
+            direction = LEFT;
+            downLimit--;
+        } else if (nextRow == upLimit && count > n + 1) {
+            direction = RIGHT;
+            upLimit++;
+        }
+
+        if (nextCol == rightLimit) {
+            direction = DOWN;
+            rightLimit--;
+        } else if (nextCol == leftLimit) {
+            direction = UP;
+            leftLimit++;
+        }
+
+        // re-calculate
+        nextRow = row + directions[direction][0];
+        nextCol = col + directions[direction][1];
+
+        row = nextRow;
+        col = nextCol;
     }
+
+    return res;
+}
 
     public static void main(String[] args) {
       Solution s = new Solution();
-      System.out.println(s.decodeString("100[a]"));
+      System.out.println(s.generateMatrix(3));
     }
 }
 
