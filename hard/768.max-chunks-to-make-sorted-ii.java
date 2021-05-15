@@ -12,12 +12,12 @@ class Solution {
             return 1;
         }
 
-        int[] maxFromleft = new int[len];
+        int[] maxFromLeft = new int[len];
         int[] minFromRight = new int[len];
 
-        maxFromleft[0] = arr[0];
+        maxFromLeft[0] = arr[0];
         for (int i=1; i<len; i++) {
-            maxFromleft[i] = Math.max(maxFromleft[i-1], arr[i]);
+            maxFromLeft[i] = Math.max(maxFromLeft[i-1], arr[i]);
         }
 
         minFromRight[len-1] = arr[len-1];
@@ -27,7 +27,7 @@ class Solution {
 
         int count = 1;
         for (int i=0; i<len-1; i++) {
-            if (maxFromleft[i] <= minFromRight[i+1]) {
+            if (maxFromLeft[i] <= minFromRight[i+1]) {
                 count++;
             }
         }
