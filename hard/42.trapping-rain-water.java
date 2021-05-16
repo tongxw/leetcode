@@ -9,6 +9,10 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int trap(int[] height) {
+        return monostoneStack(height);
+    }
+
+    private int solution1(int[] height) {
         // for every height[i], the water it can hold should be
         // the min value of left height max and right height max
         int len = height.length;
@@ -37,27 +41,46 @@ class Solution {
         }
 
         return total;
-
     }
 
     private int monostoneStack(int[] height) {
         // monostoneStack
-        Stack<Integer> stack = new Stack<>();
-        int[] ret = new int[height.length];
-        for (int i=0; i<height.length; i++) {
-            while (!stack.isEmpty() && stack.peek() > height[i]) {
-                ret[i] = stack.pop() - height[i];
+        if (height == null) return 0;
+        Stack<Integer> s = new Stack<Integer>();
+        int i = 0, maxWater = 0;
+        while (i < height.length){
+            if (s.isEmpty()) {
+                s.push(i++);
+            } else if (height[i] <= height[s.peek()]) {
+                s.push(i++);
+            } else {
+                // next height is higher
+                int bottom = s.pop();
+                if (s.isEmpty()) {
+                    // no left height
+                    continue;
+                }
+                int leftHeight = s.peek();
+
+                // which is higher, left or right?
+                int higher = Math.min(leftHeight, height[i]);
+                int water = higher - bottom;
+                maxWater += water;
+
+                // do not increase i, check the next top at the stack
             }
 
-            stack.push(height[i]);
-        }
 
-        int total = 0;
-        for (int r : ret) {
-            total += r;
+            // if (s.isEmpty() || height[i] <= height[s.peek()]){
+            //     s.push(i++);
+            // } else { // height[i] > height[s.peek()]
+            //     int bot = s.pop();
+            //     maxBotWater = s.isEmpty()? // empty means no il
+            //     0:(Math.min(A[s.peek()],A[i])-A[bot])*(i-s.peek()-1);
+            //     maxWater += maxBotWater;
+            // }
         }
-
-        return total;
+        return maxWater;
     }
 }
 // @lc code=end

@@ -1,62 +1,43 @@
 import java.util.Stack;
 
 class Solution {
-  public int[][] generateMatrix(int n) {
-    int[][] res = new int[n][n];
-
-    int total = n * n;
-    int count = 1;
-
-    int[][] directions = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-    final int RIGHT = 0;
-    final int DOWN = 1;
-    final int LEFT = 2;
-    final int UP = 3;
-
-    int row = 0;
-    int col = 0;
-    int direction = RIGHT;
-    int leftLimit = -1;
-    int rightLimit = n;
-    int upLimit = 0;
-    int downLimit = n;
-    while (count <= total) {
-        res[row][col] = count++;
-
-        // try moving to the next grid, and change the direction if meet the boundary
-        int nextRow = row + directions[direction][0];
-        int nextCol = col + directions[direction][1];
-
-        if (nextRow == downLimit) {
-            direction = LEFT;
-            downLimit--;
-        } else if (nextRow == upLimit && count > n + 1) {
-            direction = RIGHT;
-            upLimit++;
-        }
-
-        if (nextCol == rightLimit) {
-            direction = DOWN;
-            rightLimit--;
-        } else if (nextCol == leftLimit) {
-            direction = UP;
-            leftLimit++;
-        }
-
-        // re-calculate
-        nextRow = row + directions[direction][0];
-        nextCol = col + directions[direction][1];
-
-        row = nextRow;
-        col = nextCol;
+    public int trap(int[] height) {
+        return monostoneStack(height);
     }
 
-    return res;
-}
+    private int monostoneStack(int[] height) {
+        // monostoneStack
+        if (height == null) return 0;
+        Stack<Integer> s = new Stack<Integer>();
+        int i = 0, maxWater = 0;
+        while (i < height.length){
+            if (s.isEmpty()) {
+                s.push(i++);
+            } else if (height[i] <= height[s.peek()]) {
+                s.push(i++);
+            } else {
+                // next height is higher
+                int bottom = s.pop();
+                if (s.isEmpty()) {
+                    // no left height
+                    continue;
+                }
+                int leftHeight = s.peek();
+
+                // which is higher, left or right?
+                int higher = Math.min(leftHeight, height[i]);
+                int water = higher - bottom;
+                maxWater += water;
+
+                // do not increase i, check the next top at the stack
+            }
+        }
+        return maxWater;
+    }
 
     public static void main(String[] args) {
       Solution s = new Solution();
-      System.out.println(s.generateMatrix(3));
+      System.out.println(s.trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}));
     }
 }
 
