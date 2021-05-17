@@ -9,7 +9,7 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int trap(int[] height) {
-        return monostoneStack(height);
+        return monostoneStack2(height);
     }
 
     private int solution1(int[] height) {
@@ -55,31 +55,47 @@ class Solution {
                 s.push(i++);
             } else {
                 // next height is higher
-                int bottom = s.pop();
+                int bottomIndex = s.pop();
                 if (s.isEmpty()) {
                     // no left height
                     continue;
                 }
-                int leftHeight = s.peek();
+                int leftHeightIndex = s.peek();
 
-                // which is higher, left or right?
-                int higher = Math.min(leftHeight, height[i]);
-                int water = higher - bottom;
+                // which is lower, left or right?
+                int lower = Math.min(height[leftHeightIndex], height[i]);
+
+                // (i-s.peek()-1): calculate the size for all the indexes
+                int water = (lower - height[bottomIndex]) * (i - s.peek() - 1);
                 maxWater += water;
 
                 // do not increase i, check the next top at the stack
             }
-
-
-            // if (s.isEmpty() || height[i] <= height[s.peek()]){
-            //     s.push(i++);
-            // } else { // height[i] > height[s.peek()]
-            //     int bot = s.pop();
-            //     maxBotWater = s.isEmpty()? // empty means no il
-            //     0:(Math.min(A[s.peek()],A[i])-A[bot])*(i-s.peek()-1);
-            //     maxWater += maxBotWater;
-            // }
         }
+        return maxWater;
+    }
+
+    private int monostoneStack2(int[] height) {
+        if (height == null) {
+            return 0;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        int maxWater = 0;
+        for (int i=0; i<height.length; i++) {
+            while(!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                int lastHeightIndex = stack.pop();
+                if (stack.isEmpty()) {
+                    continue;
+                } else {
+                    int leftToLastHeightIndex = stack.peek();
+                    int lower = Math.min(height[leftToLastHeightIndex], height[i]);
+                    maxWater += (lower - height[lastHeightIndex]) * (i - stack.peek() - 1);
+                }
+            }
+            stack.push(i);
+        }
+
         return maxWater;
     }
 }

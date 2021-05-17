@@ -34,12 +34,12 @@ class Solution {
             return head;
         }
 
-        // get the (k - 1)th node from the last
+        // get the (k + 1)th node from the last
         ListNode first = head;
         ListNode second = head;
         while (first != null) {
             first = first.next;
-            if (k - 1 != 0) {
+            if (k + 1 != 0) {
                 k--;
             } else {
                 second = second.next;

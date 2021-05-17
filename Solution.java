@@ -6,32 +6,39 @@ class Solution {
     }
 
     private int monostoneStack(int[] height) {
-        // monostoneStack
-        if (height == null) return 0;
-        Stack<Integer> s = new Stack<Integer>();
-        int i = 0, maxWater = 0;
-        while (i < height.length){
-            if (s.isEmpty()) {
-                s.push(i++);
-            } else if (height[i] <= height[s.peek()]) {
-                s.push(i++);
-            } else {
-                // next height is higher
-                int bottom = s.pop();
-                if (s.isEmpty()) {
-                    // no left height
+        if (height == null) {
+            return 0;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        int[] water = new int[height.length];
+        for (int i=0; i<height.length; i++) {
+            while(!stack.isEmpty() && height[i] > height[stack.peek()]) {
+                int lastHeightIndex = stack.pop();
+                if (stack.isEmpty()) {
+                    water[lastHeightIndex] = 0;
                     continue;
+                } else {
+                    int leftToLastHeightIndex = stack.peek();
+                    int lower = Math.min(height[leftToLastHeightIndex], height[i]);
+                    water[lastHeightIndex] = lower - height[lastHeightIndex];
                 }
-                int leftHeight = s.peek();
+            }
+            stack.push(i);
+        }
 
-                // which is higher, left or right?
-                int higher = Math.min(leftHeight, height[i]);
-                int water = higher - bottom;
-                maxWater += water;
-
-                // do not increase i, check the next top at the stack
+        int maxWater = 0;
+        for (int i=0; i<water.length; i++) {
+            maxWater += water[i];
+            for (int j=i+1; j<water.length; j++) {
+                if (water[j] != 0) {
+                    maxWater += water[j];
+                } else {
+                    break;
+                }
             }
         }
+
         return maxWater;
     }
 
