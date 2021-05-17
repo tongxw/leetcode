@@ -9,7 +9,7 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int trap(int[] height) {
-        return monostoneStack2(height);
+        return monotoneStack2(height);
     }
 
     private int solution1(int[] height) {
@@ -43,7 +43,7 @@ class Solution {
         return total;
     }
 
-    private int monostoneStack(int[] height) {
+    private int monotoneStack(int[] height) {
         // monostoneStack
         if (height == null) return 0;
         Stack<Integer> s = new Stack<Integer>();
@@ -75,7 +75,7 @@ class Solution {
         return maxWater;
     }
 
-    private int monostoneStack2(int[] height) {
+    private int monotoneStack2(int[] height) {
         if (height == null) {
             return 0;
         }

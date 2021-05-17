@@ -9,7 +9,7 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        return monostoneStack(heights);
+        return monotoneStack(heights);
     }
 
     private int bruteForce(int[] heights) {
@@ -70,7 +70,7 @@ class Solution {
         return area;
     }
 
-    private int monostoneStack(int[] heights) {
+    private int monotoneStack(int[] heights) {
         Stack<Integer> stack = new Stack<>();
         int area = 0;
         int i = 0;
