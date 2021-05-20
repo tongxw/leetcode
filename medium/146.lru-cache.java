@@ -27,7 +27,7 @@ class LRUCache {
     private int size = 0;
     private ListNode head; // recent used: head.next
     private ListNode tail; // least used: tail.prev
-    private HashMap<Integer, ListNode> map; // put the value in the list node
+    private HashMap<Integer, ListNode> map; // { node->key : node }
 
     public LRUCache(int capacity) {
         this.cap = capacity;
@@ -43,6 +43,7 @@ class LRUCache {
             ListNode node = map.get(key);
             moveToHead(node);
 
+            // printList("get " + key);
             return node.val;
         } else {
             return -1;
@@ -56,41 +57,83 @@ class LRUCache {
             node = map.get(key);
             node.val = value;
 
-            // put this node to head
+            // this is the most recent one
             moveToHead(node);
+            // printList("update " + key);
         } else {
-            // create new one
+            // create a new one
             node = new ListNode(key, value);
+
             map.put(key, node);
+            addHeadNode(node);
             size++;
-            addNodeAfterHead(node);
+
+            // printList("put " + key);
 
             if (size > cap) {
-                // remove the least used one at tail
-                removeNode(tail.prev);
+                if (tail.prev != null) {
+                    // remove the least used one at tail
+                    int removeKey = tail.prev.key;
+                    unlinkNode(tail.prev);
+
+                    // printList("remove cap " + removeKey);
+
+                    // remove from map
+                    map.remove(removeKey);
+                }
+
                 size--;
             }
         }
     }
 
     private void moveToHead(ListNode node) {
-        removeNode(node);
-        addNodeAfterHead(node);
+        unlinkNode(node);
+        addHeadNode(node);
     }
 
-    private void removeNode(ListNode node) {
+    private void unlinkNode(ListNode node) {
+        if (node == null) {
+            return;
+        }
+
+        // { prev <-> node <-> next } => { prev <-> next }
         ListNode prevNode = node.prev;
         ListNode nextNode = node.next;
-        prevNode.next = nextNode;
-        nextNode.prev = prevNode;
+        if (prevNode != null) {
+            prevNode.next = nextNode;
+        }
+        if (nextNode != null) {
+            nextNode.prev = prevNode;
+        }
+
+        node.prev = null;
+        node.next = null;
     }
 
-    private void addNodeAfterHead(ListNode node) {
-        ListNode afterHead = head.next;
+    private void addHeadNode(ListNode node) {
+        if (node == null) {
+            return;
+        }
+        // { head <-> headNext } => { head <-> node <-> headNext }
+        ListNode headNext = head.next;
         head.next = node;
         node.prev = head;
-        afterHead.prev = node;
-        node.next = afterHead;
+        if (headNext != null) {
+            headNext.prev = node;
+            node.next = headNext;
+        }
+    }
+
+    private void printList(String note) {
+        ListNode node = head;
+        StringBuffer out = new StringBuffer(note);
+        while (node != null) {
+            out.append(node.key);
+            out.append(" -> ");
+            node = node.next;
+        }
+        System.out.println(out.toString());
     }
 }
 
