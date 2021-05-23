@@ -6,13 +6,16 @@
 
 // @lc code=start
 class NumArray {
-
+    private int[] preSums;
     public NumArray(int[] nums) {
-        
+        this.preSums = new int[nums.length + 1];
+        for (int i=1; i<nums.length + 1; i++) {
+            preSums[i] = nums[i-1] + preSums[i-1];
+        }
     }
     
     public int sumRange(int left, int right) {
-        
+        return preSums[right + 1] - preSums[left];
     }
 }
 
