@@ -27,6 +27,9 @@ import javax.swing.tree.TreeNode;
  * }
  */
 class Solution {
+    private int dfsMaxDepth = -1;
+    private int dfsRetVal = -1;
+
     public int findBottomLeftValue(TreeNode root) {
         if (root == null) {
             return -1;
@@ -60,6 +63,23 @@ class Solution {
         return -1;
     }
 
+    private void dfs(TreeNode root, int depth) {
+        if (root == null) {
+            return;
+        }
+
+        depth++;
+        if (depth > dfsMaxDepth) {
+            dfsMaxDepth = depth;
+            dfsRetVal = root.val;
+        }
+
+        // must check left child first
+        dfs(root.left, depth);
+        dfs(root.right, depth);
+    }
+
+
     private int bfsRightToLeft(TreeNode root) {
         if (root == null) {
             return -1;
@@ -84,15 +104,15 @@ class Solution {
         return node.val;
     }
 
-    private void dfs(TreeNode root, Stack<Integer> stack) {
-        if (root == null) {
-            return;
-        }
+    // private void dfs(TreeNode root, Stack<Integer> stack) {
+    //     if (root == null) {
+    //         return;
+    //     }
 
-        dfs(root.right, stack);
-        stack.push(root.val);
-        dfs(root.left, stack);
-    }
+    //     dfs(root.right, stack);
+    //     stack.push(root.val);
+    //     dfs(root.left, stack);
+    // }
 }
 // @lc code=end
 
