@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -9,35 +10,45 @@ import java.util.PriorityQueue;
 
 // @lc code=start
 class Solution {
+    //TODO review
     public double mincostToHireWorkers(int[] quality, int[] wage, int k) {
-        // key: for all the workers, their (quality) / (actual wage) should be the same
-        // so, for these k people, we should find the smallest q / w
         int len = quality.length;
-        // HashMap<Double, Integer> mapIndex = new HashMap<>();
-        // for (int i=0; i<len; i++) {
-        //     map.put()
-        // }
 
-        PriorityQueue<Eff> pQ = new PriorityQueue<>(len, (d1, d2) -> {return (int)(d1.qw - d2.qw);});
-        for (int i=0 ;i<len; i++) {
-            Eff eff = new Eff();
-            eff.index = i;
-            eff.qw = (double)quality[i]/wage[i];
-
-            pQ.offer(eff);
+        // "wage / quality" means how much this person demands for their work
+        // since we need to hire at least k people for minimum cost, we need to
+        // sort "wage / quality" and find the minimum k people.
+        ArrayList<Worker> workers = new ArrayList<>();
+        for (int i=0; i<len; i++) {
+            workers.add(new Worker(quality[i], wage[i], i));
         }
 
-        double ans = 0f;
-        while (k > 0) {
-            int index = pQ.poll().index;
-            
-            k --;
+        Collections.sort(workers, (worker1, worker2) -> {
+            return (int)(worker1.wq - worker2.wq);
+        });
+
+        // pay the k-1 worker the minimum wage, and other workers based on quality ratio
+        double cost = 0f;
+        int minW = workers.get(k-1).wage;
+        int minQ = workers.get(k-1).quality;
+        for (int i=k-1; i>=0; i--) {
+            System.out.println("worker q:" + workers.get(i).quality + " worker w: " + workers.get(i).wage);
+            cost += (double)(minW * (double)(workers.get(i).quality / minQ));
         }
+
+        return cost;
     }
 
-    private class Eff {
-        double qw;
+    private class Worker {
+        int quality;
+        int wage;
         int index;
+        double wq;
+        Worker(int q, int w, int i) {
+            this.quality = q;
+            this.wage = w;
+            this.index = i;
+            this.wq = (double)w / q;
+        }
     }
 }
 // @lc code=end
