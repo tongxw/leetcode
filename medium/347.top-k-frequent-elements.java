@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /*
  * @lc app=leetcode id=347 lang=java
  *
@@ -7,24 +12,28 @@
 // @lc code=start
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        // HashMap<Integer, Integer> map = new HashMap<>();
-        // for (int num : nums) {
-        //     map.put(num, map.getOrDefault(num, 0) + 1);
-        // }
 
-        // Integer[] allNums = map.keySet().toArray(new Integer[0]);
-        // Arrays.sort(allNums, (num1, num2) -> {
-        //     return map.get(num2) - map.get(num1);
-        // });
+        // return heapSolution(nums, k);
+        return bucketSort(nums, k);
+    }
+
+    private int[] quickSort(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        Integer[] allNums = map.keySet().toArray(new Integer[0]);
+        Arrays.sort(allNums, (num1, num2) -> {
+            return map.get(num2) - map.get(num1);
+        });
         
-        // int[] ans = new int[k];
-        // for (int i=0; i<k; i++) {
-        //     ans[i] = allNums[i];
-        // }
+        int[] ans = new int[k];
+        for (int i=0; i<k; i++) {
+            ans[i] = allNums[i];
+        }
 
-        // return ans;
-
-        return heapSolution(nums, k);
+        return ans;
     }
 
     private int[] heapSolution(int[] nums, int k) {
@@ -69,6 +78,41 @@ class Solution {
         // }
         
         return ans;
+    }
+
+    private int[] bucketSort(int[] nums, int k) {
+        // time O(n), space O(n)
+        HashMap<Integer, Integer> counter = new HashMap<>();
+        for (int num : nums) {
+            counter.put(num, counter.getOrDefault(num, 0) + 1);
+        }
+
+        List<Integer>[] buckets = new List[nums.length + 1];
+        for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
+            int num = entry.getKey();
+            int count = entry.getValue();
+            List<Integer> bucket = buckets[count];
+            if (bucket == null) {
+                bucket = new ArrayList<>();
+                buckets[count] = bucket;
+            }
+            bucket.add(num);
+        }
+
+        int[] ret = new int[k];
+        int j = 0;
+        for (int i=buckets.length - 1; i>=0; i--) {
+            if (buckets[i] != null) {
+                for (int num : buckets[i]) {
+                    ret[j++] = num;
+                    if (j == k) {
+                        return ret;
+                    }
+                }
+            }
+        }
+
+        return ret;
     }
 
 }
