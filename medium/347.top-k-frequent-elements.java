@@ -39,7 +39,7 @@ class Solution {
         int i = 0;
         if (len == 0) {
             for (int num : map.keySet()) {
-                // System.out.println("len=0: " + num);
+
                 ans[i++] = num;
             }
 
@@ -69,7 +69,6 @@ class Solution {
         // }
         
         return ans;
-
     }
 
 }
