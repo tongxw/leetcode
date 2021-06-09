@@ -1,6 +1,6 @@
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
-
-import javax.security.auth.kerberos.KerberosTicket;
 
 /*
  * @lc app=leetcode id=239 lang=java
@@ -11,29 +11,66 @@ import javax.security.auth.kerberos.KerberosTicket;
 // @lc code=start
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>((num1, num2) -> {
-            return num2 - num1;
+        // monotone dequeue (similar as monotone stack) 
+        // save the num index instead of num itself
+        Deque<Integer> deque = new LinkedList<>();
+
+        // head (index of max number) -> ... -> tail (index of min value)
+        for (int i=0; i<k; i++) {
+            // for all the nums which are smaller than the current num
+            // they are useless now, just remove them
+            while(!deque.isEmpty() && nums[i] > nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+
+            deque.offerLast(i);
+        }
+
+        int[] ans = new int[nums.length - k + 1];
+        int j = 0;
+        ans[j++] = nums[deque.peekFirst()];
+        for (int i=k; i<nums.length; i++) {
+            // for all the nums (in the tail) which are smaller than the current num
+            // they are useless now, just remove them
+            while(!deque.isEmpty() && nums[i] > nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+
+            deque.offerLast(i);
+
+            // remove the max number (from the head) if it is not in the window
+            while (deque.peekFirst() <= i - k) {
+                deque.pollFirst();
+            }
+
+            ans[j++] = nums[deque.peekFirst()];
+        }
+
+        return ans;
+
+    }
+
+    private int[] heapSolution(int[] nums, int k) {
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>((index1, index2) -> {
+            return nums[index2] - nums[index1];
         });
-        HashMap<Integer, Integer> map = new HashMap<>();
 
         int[] ans = new int[nums.length - k + 1];
         int j = 0;
         for (int i=0; i<nums.length; i++) {
-            map.put(nums[i], i);
             if (i >= k) {
-                System.out.println(i);
-                ans[j++] = pQueue.peek();
-                int numToRemove = nums[i - k];
-                if (pQueue.peek() == numToRemove) {
+                ans[j++] = nums[pQueue.peek()];
+                while (!pQueue.isEmpty() && pQueue.peek() <= i-k) {
                     pQueue.poll();
                 }
             }
 
-            pQueue.offer(nums[i]);
+            pQueue.offer(i);
         }
 
         // [9,10,9,-7,-4,-8,2,-6]\n5
-        ans[j] = pQueue.peek();
+        // [1,-1]\n1
+        ans[j] = nums[pQueue.peek()];
         return ans;
     }
 }
