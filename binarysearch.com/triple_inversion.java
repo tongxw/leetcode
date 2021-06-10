@@ -1,6 +1,6 @@
-https://binarysearch.com/problems/Triple-Inversion
-
 import java.util.*;
+
+// https://binarysearch.com/problems/Triple-Inversion
 
 class Solution {
     private int count = 0;
