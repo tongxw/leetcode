@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
     public int threeSumClosest(int[] nums, int target) {
-        // 3 pointers, Sort + Binary Search. TC: O(NLogN)
+        // 3 pointers, Sort + two pointer search. TC: O(NLogN)
         Arrays.sort(nums);
         int result = 0;
         int closest = Integer.MAX_VALUE;
