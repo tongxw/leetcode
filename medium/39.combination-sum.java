@@ -13,8 +13,8 @@ class Solution {
     private List<List<Integer>> ans = new ArrayList<List<Integer>>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<Integer> path = new ArrayList<>();
-        backTrackingDfs(candidates, target, path, 0);
-
+        // backTrackingDfs(candidates, target, path, 0);
+        dfsBackTracking(candidates,target, path, 0);
         return ans;
     }
 
@@ -38,6 +38,21 @@ class Solution {
             path.add(candidates[i]);
             backTrackingDfs(candidates, target - candidates[i], path, i); // do not set i+1 !!
             path.remove(path.size() - 1);
+        }
+    }
+
+    private void dfsBackTracking(int[] candidates, int target, List<Integer> path, int start) {
+        if (target == 0) {
+            ans.add(new ArrayList<Integer>(path));
+            return;
+        }
+
+        for (int i=0; i<candidates.length; i++) {
+            if (target - candidates[i] >= 0) {
+                path.add(candidates[i]);
+                dfsBackTracking(candidates, target - candidates[i], path, i); // do not set i+1
+                path.remove(path.size() - 1);
+            }
         }
     }
 }
