@@ -47,7 +47,8 @@ class Solution {
             return;
         }
 
-        for (int i=0; i<candidates.length; i++) {
+        // 关键点：i=start而不是i=0，去重
+        for (int i=start; i<candidates.length; i++) {
             if (target - candidates[i] >= 0) {
                 path.add(candidates[i]);
                 dfsBackTracking(candidates, target - candidates[i], path, i); // do not set i+1
