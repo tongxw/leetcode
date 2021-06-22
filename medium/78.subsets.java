@@ -28,8 +28,6 @@ class Solution {
         }
     }
 
-
-
     private List<List<Integer>> bitManipulation(int[] nums) {
         int len = nums.length;
         List<List<Integer>> ans = new ArrayList<List<Integer>>();
