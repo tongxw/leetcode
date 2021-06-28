@@ -8,6 +8,7 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    // LCS 583 712 1143
     // https://leetcode-cn.com/problems/longest-common-subsequence/solution/fu-xue-ming-zhu-er-wei-dong-tai-gui-hua-r5ez6/
     public int longestCommonSubsequence(String text1, String text2) {
         /*
@@ -16,8 +17,8 @@ class Solution {
          * 其含义是在 A[0:i] 与 B[0:j] 之间匹配得到的想要的结果。
          */
 
-        // dp(i, j): length of LCS from text1[0..i-1] and text2[0...j]
-        // dp(i, i) = 0 if i==0 or j==0, one string is empty
+        // dp(i, j): length of LCS from text1[0..i-1] and text2[0...j-1]
+        // dp(i, j) = 0 if i==0 or j==0, one string is empty
 
         // if text[i-1] == text[j-1] : dp(i, j) = dp(i-1, j-1) + 1
         // else: dp(i, j) = max(dp(i-1, j), dp(i, j-1))
