@@ -8,7 +8,7 @@
 class Solution {
     // TODO
     public int coinChange(int[] coins, int amount) {
-        // dp(i, j): how many coins from coins[0...i] for the amount j
+        // dp(i, j): how many coins from for the amount j
         // return dp(len(coins) - 1, amount)
         // TC: 2^len(coins) * (amount + 1)
         // dp(i, 0) = 0
