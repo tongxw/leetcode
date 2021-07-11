@@ -14,6 +14,35 @@ class Solution {
         // this is the minimum arrows we need to burst all points
         Arrays.sort(points, (p1, p2) -> {
             // [[-2147483646,-2147483645],[2147483646,2147483647]]
+            if (p1[1] < p2[1]) {
+                return -1;
+            } else if (p1[1] > p2[1]) {
+                return 1;
+            } else {
+                return 0;
+            }
+         } );
+
+         // greed
+         int ans = 1;
+         int right = points[0][1];
+         for (int i=0; i<points.length; i++) {
+            if (points[i][0] > right) {
+                ans++;
+                right = points[i][1];
+            }
+
+         }
+
+        return ans;
+    }
+
+    private int dpSolution(int[][] points) {
+                // same as LC-435 LC-646 LC-300
+        // if we can find the longest length of the points which do not overlap
+        // this is the minimum arrows we need to burst all points
+        Arrays.sort(points, (p1, p2) -> {
+            // [[-2147483646,-2147483645],[2147483646,2147483647]]
             if (p1[0] < p2[0]) {
                 return -1;
             } else if (p1[0] > p2[0]) {
