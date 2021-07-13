@@ -23,6 +23,7 @@ class Solution {
         // 局部最优：
         // put the biggest person in the boat
         // then check if the lightest person can fit in the same boat
+        
         // double pointers
         int l = 0;
         for (int r=people.length - 1; r>=l; r--) {
