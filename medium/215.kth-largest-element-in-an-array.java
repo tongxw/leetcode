@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 /*
  * @lc app=leetcode id=215 lang=java
  *
@@ -7,13 +9,15 @@
 // @lc code=start
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        if (k > nums.length) {
-            return 0;
+        PriorityQueue<Integer> pQ = new PriorityQueue<>();
+        for (int num : nums) {
+            pQ.offer(num);
+            if (pQ.size() > k) {
+                pQ.poll();
+            }
         }
-        // solution 1, sort...
 
-        // solution 2
-
+        return pQ.peek();
     }
 }
 // @lc code=end
