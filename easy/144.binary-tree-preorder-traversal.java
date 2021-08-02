@@ -27,11 +27,9 @@ import javax.swing.tree.TreeNode;
  */
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        // List<Integer> ans = new ArrayList<>();
-        // dfs(root, ans);
-        // return ans;
-
-        return stack(root);
+        List<Integer> ans = new ArrayList<>();
+        dfs(root, ans);
+        return ans;
     }
 
     private void dfs(TreeNode root, List<Integer> ans) {
