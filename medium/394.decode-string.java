@@ -10,6 +10,10 @@ import java.util.Stack;
 class Solution {
     public String decodeString(String s) {
         char[] chars = s.toCharArray();
+        return dfs(chars, 0)[0];
+    }
+
+    private String stackSolution(char[] chars) {
         Stack<String> stack = new Stack<>();
         String number = "";
         
@@ -53,6 +57,33 @@ class Solution {
         // ""30[22[a]]""
         // ""3[b3[a]]""
         return res.toString();
+    }
+
+    private String[] dfs(char[] chars, int start) {
+        StringBuilder res = new StringBuilder();
+        int repeat = 0;
+        for (int i=start; i<chars.length; i++) {
+            char c = chars[i];
+            if (Character.isDigit(c)) {
+                repeat = repeat * 10 + (c - '0');
+            } else if (c == '[') {
+                // calculate the result inside '[]''
+                String[] ret = dfs(chars, i + 1);
+                i = Integer.parseInt(ret[1]);
+                while (repeat > 0) {
+                    res.append(ret[0]);
+                    repeat--;
+                }
+            } else if (c == ']') {
+                // return the string inside '[]', also the current index
+                return new String[] {res.toString(), String.valueOf(i)};
+            } else {
+                // chars
+                res.append(c);
+            }
+        }
+
+        return new String[]{ res.toString(), String.valueOf(chars.length) };
     }
 }
 // @lc code=end
