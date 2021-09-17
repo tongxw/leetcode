@@ -24,7 +24,6 @@ var shortestToChar = function(s, c) {
     ans[i] = Math.min(ans[i], count);
   }
 
-  //"abaa"\n"b"
   return ans;
 };
 // @lc code=end
