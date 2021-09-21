@@ -9,7 +9,6 @@ import java.util.LinkedList;
 
 // @lc code=start
 class LRUCache {
-
     private class ListNode {
         ListNode prev = null;
         ListNode next = null;
