@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Queue;
 
 import javax.swing.tree.TreeNode;
@@ -7,6 +8,7 @@ import javax.swing.tree.TreeNode;
  * @lc app=leetcode id=297 lang=java
  *
  * [297] Serialize and Deserialize Binary Tree
+ * [tree][design]
  */
 
 // @lc code=start
@@ -21,10 +23,25 @@ import javax.swing.tree.TreeNode;
  */
 public class Codec {
 
+    //https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/solution/shou-hui-tu-jie-gei-chu-dfshe-bfsliang-chong-jie-f/
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
+        String ret = dfs(root);
+        System.out.println(ret);
+        return ret;
+    }
+
+    private String dfs(TreeNode root) {
         if (root == null) {
-            return "";
+            return "null";
+        }
+
+        return String.valueOf(root.val) + "," + dfs(root.left) + "," + dfs(root.right);
+    }
+
+    private String bfsSerialize(TreeNode root) {
+        if (root == null) {
+            return "null";
         }
         StringBuffer ret = new StringBuffer();
         Queue<TreeNode> q = new LinkedList<>();
@@ -61,53 +78,52 @@ public class Codec {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.isEmpty()) {
-            return null;
-        }
-        String[] vals = data.split(",");
-        if (vals == null || vals.length == 0) {
+        if (data == null || data.equals("null")) {
             return null;
         }
 
-        TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        buildTree(vals, q, 1);
+        String[] list = data.split(",");
 
-        //[1,2,3,null,null,4,5,null,6]
-        return root;
+        return dfsDeserialize(list);
     }
-    private void buildTree(String[] vals, Queue<TreeNode> q, int beginIndex) {
-        int len = q.size();
-        if (beginIndex >= vals.length || len == 0) {
-            return;
+
+    int pos = 0;
+    private TreeNode dfsDeserialize(String[] list) {
+        if (pos >= list.length || "null".equals(list[pos])) {
+            return null;
         }
 
-        for (int i=0; i<len; i++) {
+        TreeNode node = new TreeNode(Integer.parseInt(list[pos]));
+        pos++;
+        node.left = dfsDeserialize(list);
+        pos++;
+        node.right = dfsDeserialize(list);
+
+        return node;
+    }
+
+    private TreeNode bfsDeserialize(String[] list) {
+        TreeNode root = new TreeNode(Integer.parseInt(list[0]));
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int childPos = 1;
+        while (childPos < list.length) {
             TreeNode parent = q.poll();
-    
-            if (beginIndex >= vals.length) {
-                return;
+            String leftVal = list[childPos];
+            String rightVal = list[childPos + 1];
+            if (!"null".equals(leftVal)) {
+                root.left = new TreeNode(Integer.parseInt(leftVal));
+                q.offer(root.left);
             }
-            if (!vals[beginIndex].equals("null")) {
-                TreeNode lChild = new TreeNode(Integer.parseInt(vals[beginIndex]));
-                parent.left = lChild;
-                q.add(lChild);
+            if (!"null".equals(rightVal)) {
+                root.right = new TreeNode(Integer.parseInt(rightVal));
+                q.offer(root.right);
             }
-            beginIndex++;
 
-            if (beginIndex >= vals.length) {
-                return;
-            }
-            if (!vals[beginIndex].equals("null")) {
-                TreeNode rChild = new TreeNode(Integer.parseInt(vals[beginIndex]));
-                parent.right = rChild;
-                q.add(rChild);
-            }
-            beginIndex++;
+            childPos += 2;
         }
 
-        buildTree(vals, q, beginIndex);
+        return root;
     }
 }
 

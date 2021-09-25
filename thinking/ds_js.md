@@ -102,3 +102,19 @@ class Queue
   }
 }
 ```
+
+## 类型转换 / Type Conversion
+Convert the elements of an array into a string
+```js
+  const fruits = ["Banana", "Orange", "Apple", "Mango"];
+  console.log(fruits.join())   // Returns "Banana,Orange,Apple,Mango"
+  console.log(fruits.toString())   // Returns "Banana,Orange,Apple,Mango"
+```
+Convert a number to a string, using different bases:
+```js
+var num = 15;
+var a = num.toString();
+var b = num.toString(2);
+var c = num.toString(8);
+var d = num.toString(16);
+```
