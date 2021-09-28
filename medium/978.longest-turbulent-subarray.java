@@ -7,25 +7,61 @@
 // @lc code=start
 class Solution {
     public int maxTurbulenceSize(int[] arr) {
-        int ans = 0;
-        int l = 0;
-        int r = 0;
-        while (r < arr.length - 1) {
-            if (l == r) {
-                if (arr[r] == arr[r+1]) {
-                    l++;
-                }
-                r++;
-            } else {
-                if ((arr[r - 1] < arr[r] && arr[r] > arr[r+1]) ||
-                    (arr[r - 1] > arr[r] && arr[r] < arr[r + 1])) {
-                    r++;
+        // dp(i) = max turbulence size for arr[0...i]
+        // dp(0) = 1
+        // dp(1) = 2
+        // dp(2) = if a[1] > a[0] => { if a[2] < a[1] => dp(1) + 1, else => 1}
+        //       = if a[1] < a[0] => { if a[2] > a[1] => dp(1) + 1, else => 1}
+        // dp(i) = if a[i-1] > a[i-2] => { if a[i] < a[i-1] => dp(i-1) + 1, else => 2}
+        //       = if a[i-1] < a[i-2] => { if a[i] > a[i-1] => dp(i-1) + 1, else => 2}
+        // return max(dp(i))
+        if (arr.length <= 1) {
+            return arr.length;
+        }
+        
+
+        int dp1 = 0;
+        if (arr[0] == arr[1]) {
+            dp1 = 1;
+        } else {
+            dp1 = 2;
+        }
+        
+        
+        int ans = dp1;
+        int dp = 0;
+        for (int i=2; i<arr.length; i++) {
+            if (dp1 == 1) {
+                if (arr[i] == arr[i-1]) {
+                    dp = 1;
                 } else {
-                    l = r;
+                    dp = 2;
+                }
+            } else {
+                if (arr[i-1] > arr[i-2]) {
+                    if (arr[i] < arr[i-1]) {
+                        dp = dp1 + 1;
+                    } else if (arr[i] == arr[i-1]) {
+                        dp = 1;
+                    } else {
+                        dp = 2;
+                    }
+                }
+
+                if (arr[i-1] < arr[i-2]) {
+                    if (arr[i] > arr[i-1]) {
+                        dp = dp1 + 1;
+                    } else if (arr[i] == arr[i-1]) {
+                        dp = 1;
+                    } else {
+                        dp = 2;
+                    }
                 }
             }
 
-            ans = Math.max(ans, r - l + 1);
+            //System.out.println("idx: " + i + " dp: " + dp);
+            ans = Math.max(ans, dp);
+            dp1 = dp;
         }
         
         return ans;

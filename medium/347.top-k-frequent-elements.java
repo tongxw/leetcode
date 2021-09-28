@@ -7,6 +7,7 @@ import java.util.Map;
  * @lc app=leetcode id=347 lang=java
  *
  * [347] Top K Frequent Elements
+ * [array][hashmap][heap]
  */
 
 // @lc code=start
