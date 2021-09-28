@@ -146,4 +146,114 @@ public class ArrayDequeDemo {
 ```
 ## 堆 / 优先队列
 ## 字符串操作
+| Method                | Description                                                                                                          | Return Type  |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------|--------------|
+| charAt()              | Returns the character at the specified index (position)                                                              | char         |
+| codePointAt()         | Returns the Unicode of the character at the specified index                                                          | int          |
+| codePointBefore()     | Returns the Unicode of the character before the specified index                                                      | int          |
+| codePointCount()      | Returns the Unicode in the specified text range of this String                                                       | int          |
+| compareTo()           | Compares two strings lexicographically                                                                               | int          |
+| compareToIgnoreCase() | Compares two strings lexicographically, ignoring case differences                                                    | int          |
+| concat()              | Appends a string to the end of another string                                                                        | String       |
+| contains()            | Checks whether a string contains a sequence of characters                                                            | boolean      |
+| contentEquals()       | Checks whether a string contains the exact same sequence of characters of the specified CharSequence or StringBuffer | boolean      |
+| copyValueOf()         | Returns a String that represents the characters of the character array                                               | String       |
+| endsWith()            | Checks whether a string ends with the specified character(s)                                                         | boolean      |
+| equals()              | Compares two strings. Returns true if the strings are equal, and false if not                                        | boolean      |
+| equalsIgnoreCase()    | Compares two strings, ignoring case considerations                                                                   | boolean      |
+| format()              | Returns a formatted string using the specified locale, format string, and arguments                                  | String       |
+| getBytes()            | Encodes this String into a sequence of bytes using the named charset, storing the result into a new byte array       | byte[]       |
+| getChars()            | Copies characters from a string to an array of chars                                                                 | void         |
+| hashCode()            | Returns the hash code of a string                                                                                    | int          |
+| indexOf()             | Returns the position of the first found occurrence of specified characters in a string                               | int          |
+| intern()              | Returns the canonical representation for the string object                                                           | String       |
+| isEmpty()             | Checks whether a string is empty or not                                                                              | boolean      |
+| lastIndexOf()         | Returns the position of the last found occurrence of specified characters in a string                                | int          |
+| length()              | Returns the length of a specified string                                                                             | int          |
+| matches()             | Searches a string for a match against a regular expression, and returns the matches                                  | boolean      |
+| offsetByCodePoints()  | Returns the index within this String that is offset from the given index by codePointOffset code points              | int          |
+| regionMatches()       | Tests if two string regions are equal                                                                                | boolean      |
+| replace()             | Searches a string for a specified value, and returns a new string where the specified values are replaced            | String       |
+| replaceFirst()        | Replaces the first occurrence of a substring that matches the given regular expression with the given replacement    | String       |
+| replaceAll()          | Replaces each substring of this string that matches the given regular expression with the given replacement          | String       |
+| split()               | Splits a string into an array of substrings                                                                          | String[]     |
+| startsWith()          | Checks whether a string starts with specified characters                                                             | boolean      |
+| subSequence()         | Returns a new character sequence that is a subsequence of this sequence                                              | CharSequence |
+| substring()           | Returns a new string which is the substring of a specified string                                                    | String       |
+| toCharArray()         | Converts this string to a new character array                                                                        | char[]       |
+| toLowerCase()         | Converts a string to lower case letters                                                                              | String       |
+| toString()            | Returns the value of a String object                                                                                 | String       |
+| toUpperCase()         | Converts a string to upper case letters                                                                              | String       |
+| trim()                | Removes whitespace from both ends of a string                                                                        | String       |
+| valueOf()             | Returns the string representation of the specified value                                                             | String       |
+
+Removing certain characters from a string:
+1. replace(char oldChar, char newChar): Returns a string resulting from replacing all occurrences of oldChar in this string with newChar.
+2. replace(CharSequence target, CharSequence replacement): Replaces each substring of this string that matches the literal target sequence with the specified literal replacement sequence.
+```java
+String str = "abcdDCBA123";
+String strNew = str.replace("a", ""); // strNew is 'bcdDCBA123'
+```
+3. replaceFirst(String regex, String replacement): Replaces the first substring of this string that matches the given regular expression with the given replacement.
+```java
+String str = "abcdDCBA123";
+String strNew = str.replaceFirst("ab", ""); // strNew is 'cdDCBA123'
+```
+4. replaceAll(String regex, String replacement): Replaces each substring of this string that matches the given regular expression with the given replacement.
+```java
+String str = "abcdDCBA123";
+String strNew = str.replaceAll("([a-z])", ""); // strNew is 'DCBA123'
+```
+
 ## 类型转换
+String <-> int
+```java
+String str="-1234";
+int inum = Integer.parseInt(str); // -1234
+
+String str="1122ab";
+int num = Integer.valueOf(str); // NumberFormatException
+
+int ivar = 111;
+String str = String.valueOf(ivar);
+
+int ivar2 = 200;
+String str2 = Integer.toString(ivar2);
+
+int num = 99;  
+String str = String.format("%d",num);
+```
+
+String <-> Double
+```java
+String str = "122.202";
+double dnum = Double.parseDouble(str);
+
+String str = "122.111";
+double dnum = Double.valueOf(str);
+
+String str3 = "999.333";
+double var3 = new Double(str3);
+
+double dnum = 99.9999;  
+String str = String.valueOf(dnum);
+
+double dnum = -105.556;
+String str = Double.toString(dnum);
+
+double dnum = -99.999;
+String str = String.format("%f", dnum); 
+
+double dnum = -99.999;  
+String str = String.format("%.2f", dnum); // "-100.00"
+
+double dnum = -99.999; 
+DecimalFormat df = new DecimalFormat("#.000");
+String str = df.format(dnum); // "-99.999"
+
+double dnum = -66.89;
+StringBuilder sb = new StringBuilder();
+sb.append(dnum);
+String str = sb.toString();
+
+```

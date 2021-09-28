@@ -4,6 +4,7 @@ import java.util.HashMap;
  * @lc app=leetcode id=96 lang=java
  *
  * [96] Unique Binary Search Trees
+ * [tree]
  */
 
 // @lc code=start
