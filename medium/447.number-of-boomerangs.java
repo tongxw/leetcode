@@ -4,6 +4,7 @@ import java.util.HashMap;
  * @lc app=leetcode id=447 lang=java
  *
  * [447] Number of Boomerangs
+ * [hashmap]
  */
 
 // @lc code=start

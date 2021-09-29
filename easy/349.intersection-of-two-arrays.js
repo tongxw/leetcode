@@ -2,6 +2,7 @@
  * @lc app=leetcode id=349 lang=javascript
  *
  * [349] Intersection of Two Arrays
+ * [hashmap]
  */
 
 // @lc code=start
