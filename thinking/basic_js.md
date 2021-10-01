@@ -39,6 +39,13 @@ console.log(arr[0][0]); // 10
 console.log(arr[1][0]); // 1
 console.log(arr[2][0]); // 1
 ```
+the sum of an array of numbers
+Array.prototype.reduce()
+The reduce() method executes a user-supplied “reducer” callback function on each element of the array, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the array is a single value.
+```js
+[1,2,3,4].reduce((prev, cur) => prev + cur, 0);
+```
+
 
 ## 链表 List
 
