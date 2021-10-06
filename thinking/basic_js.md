@@ -207,3 +207,12 @@ Split a string into an array of substrings:
 let str = "How are you doing today?";
 const myArr = str.split(" ");
 ```
+
+## Math
+divide integers
+```js
+var y=11;
+var x=4;
+var quotient = Math.floor(y/x); //2
+var remainder = y % x; //3
+```
