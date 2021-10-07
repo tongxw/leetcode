@@ -186,6 +186,33 @@ class Queue
   }
 }
 ```
+## 优先队列 / 堆
+For Priority Queue / Queue data structures, you may use [datastructures-js/priority-queue](https://github.com/datastructures-js/priority-queue) and [datastructures-js/queue](https://github.com/datastructures-js/queue).
+
+```js
+// empty queue with default priority the element value itself.
+const numbersQueue = new MinPriorityQueue();
+
+// empty queue, will provide priority in .enqueue
+const patientsQueue = new MinPriorityQueue();
+
+// empty queue with priority returned from a prop of the queued object
+const biddersQueue = new MaxPriorityQueue({ priority: (bid) => bid.value });
+```
+
+with comparator
+The constructor also accepts a compare callback option to allow using complex comparison between queue elements. compare works similar to javascript sort callback: returning a number less or equal 0, means do not swap.
+```js
+const employeesQueue = new MaxPriorityQueue({
+  compare: (e1, e2) => {
+    if (e1.salary > e2.salary) return -1; // do not swap
+    if (e1.salary < e2.salary) return 1; // swap
+
+    // salaries are the same, compare rank
+    return e1.rank < e2.rank ? 1 : -1;
+  }
+});
+```
 
 ## 类型转换 / Type Conversion
 Convert the elements of an array into a string

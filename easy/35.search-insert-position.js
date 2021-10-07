@@ -2,6 +2,7 @@
  * @lc app=leetcode id=35 lang=javascript
  *
  * [35] Search Insert Position
+ * [binary-search]
  */
 
 // @lc code=start
