@@ -4,6 +4,7 @@ import java.util.Arrays;
  * @lc app=leetcode id=698 lang=java
  *
  * [698] Partition to K Equal Sum Subsets
+ * 【backtracking][dp]
  */
 
 // @lc code=start
