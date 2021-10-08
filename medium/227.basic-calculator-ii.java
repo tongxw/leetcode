@@ -14,6 +14,7 @@ class Solution {
         s = s.replaceAll(" ", "");
         // since the "* \" have higher priority than "+ -"
         // we need to use a stack to track all the number in s
+        // stack operation is based on the op sign pre to the number,
         // if it is "+", push num to stack
         // if it is "-", push -num to stack
         // if it is "*" or "/", pop the stack and do the calculation

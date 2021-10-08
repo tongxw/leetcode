@@ -1,7 +1,8 @@
 /*
  * @lc app=leetcode id=208 lang=java
  *
- * [208] Implement Trie (Prefix Tree)
+ * [208] Implement Trie (Prefix Tree)\
+ * [trie]
  */
 
 // @lc code=start
