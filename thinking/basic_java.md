@@ -3,6 +3,31 @@
 ![](./img/collection-framework-hierarchy-in-java.jpg)
 
 ## 数组 Array
+List Array
+```java
+  List<Integer>[] arr = new List[n];
+```
+List of List
+```java
+  List<List<Integer>> arr = new ArrayList<>();
+```
+HashMap Array
+```java
+  Map<Integer, Integer>[] maps = new HashMap[n];
+```
+List to Object Array
+```java
+  String[] arr = list.toArray(new String[0]);
+```
+
+List to int Array
+```java
+    int[] primitive = list.stream()
+                        .mapToInt(Integer::intValue)
+                        .toArray();
+
+    System.out.println(Arrays.toString(primitive));
+```
 
 ## 链表 List
 
