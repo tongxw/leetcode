@@ -2,6 +2,7 @@
  * @lc app=leetcode id=88 lang=java
  *
  * [88] Merge Sorted Array
+ * [sort][array]
  */
 
 // @lc code=start
