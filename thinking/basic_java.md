@@ -75,7 +75,13 @@ Java的栈操作最好用Deque来实现。
 | push(element)        | This method is used to add an element at the head of the queue.                                                                                                                                                                  |
 | removeFirst()        | This method is used to remove an element from the head of the queue.                                                                                                                                                             |
 | removeLast()         | This method is used to remove an element from the tail of the queue.                                                                                                                                                             |
-| size()               | This method is used to find and return the size of the deque.                                                                                                                                                                    |
+| size()               | This method is used to find and return the size of the deque.                                                                                               =
+
+### why ArrayDeque is better than LinkedList ?
+Linked structures are possibly the worst structure to iterate with a cache miss on each element. On top of it they consume way more memory.
+If you need add/remove of the both ends, ArrayDeque is significantly better than a linked list. Random access each element is also O(1) for a cyclic queue.
+The only better operation of a linked list is removing the current element during iteration.
+                                 |
 ```java
 // Java program to demonstrate the
 // removal of elements in deque
@@ -180,6 +186,26 @@ public class ArrayDequeDemo {
 }
 ```
 ## 堆 / 优先队列
+```java
+    public int lastStones(int[] stones) {
+        int len = stones.length;
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>(len, (p1, p2) -> p2 - p1);
+        for (int stone : stones) {
+            pQueue.add(stone);
+        }
+
+        while (pQueue.size() >= 2) {
+            int max1 = pQueue.poll();
+            int max2 = pQueue.poll();
+            if (max1 != max2) {
+                pQueue.offer(max1 - max2);
+            } 
+        }
+
+        return pQueue.isEmpty() ? 0 : pQueue.poll();
+    }
+```
+
 ## 字符串操作
 | Method                | Description                                                                                                          | Return Type  |
 |-----------------------|----------------------------------------------------------------------------------------------------------------------|--------------|
