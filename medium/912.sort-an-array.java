@@ -2,11 +2,65 @@
  * @lc app=leetcode id=912 lang=java
  *
  * [912] Sort an Array
+ * [sort][array][must]
  */
 
 // @lc code=start
 class Solution {
     public int[] sortArray(int[] nums) {
+        return quickSortArray(nums);
+    }
+
+    private int[] quickSortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    private void quickSort(int[] nums, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int mid = start + (end - start) / 2;
+        int pivot = nums[mid];
+
+        // 2 pointers
+        int i = start;
+        int j = end;
+
+        // System.out.println("start: " + i + " end: " + j);
+
+        while (i <= j) {
+            while (nums[i] < pivot) {
+                i++;
+            }
+            while (nums[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                swap(nums, i, j);
+                i++;
+                j--;
+            }
+        }
+
+        // now, i > j && nums[i] >= pivot && nums[j] <= pivot
+        // sorted array from j+1 => i-1
+
+        // System.out.println("i: " + i + " j: " + j);
+
+        quickSort(nums, start, j);
+        quickSort(nums, i, end);
+    }
+
+    private void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
+    private int[] mergeSortArray(int[] nums) {
+        // REMEMBER to define a helper temp array when do merge sort!!!
         int[] temp = new int[nums.length];
         mergeSort(nums, 0, nums.length - 1, temp);
         return nums;
@@ -23,6 +77,7 @@ class Solution {
         merge(nums, start, mid, end, temp);
     }
 
+    // LC 88, merge sorted  array
     private void merge(int[] nums, int start, int mid, int end, int[] temp) {
         int i = start;
         int j = mid + 1;
@@ -35,7 +90,6 @@ class Solution {
                 temp[idx++] = nums[j++];
             }
         }
-
 
         while (i <= mid) {
             temp[idx++] = nums[i++];

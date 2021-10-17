@@ -2,6 +2,7 @@
  * @lc app=leetcode id=148 lang=java
  *
  * [148] Sort List
+ * [sort][list][must]
  */
 
 // @lc code=start
