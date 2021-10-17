@@ -32,6 +32,16 @@ List to int Array
 ## 链表 List
 
 ## 哈希表 HashMap
+Create a hashmap with initial values
+```java
+  HashMap<String, String> brackets = new HashMap<String, String>() {
+      {
+          put("(", ")");
+          put("{", "}");
+          put("[", "]");
+      }
+  };
+```
 
 ## 栈 Stack
 Java的栈操作最好用Deque来实现。
@@ -231,6 +241,12 @@ String strNew = str.replaceAll("([a-z])", ""); // strNew is 'DCBA123'
 ```
 
 ## 类型转换
+最大值 最小值
+```java
+  int max = Integer.MAX_VALUE;
+  int min = Integer.MIN_VALUE;
+```
+
 String <-> int
 ```java
 String str="-1234";

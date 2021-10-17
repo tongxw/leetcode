@@ -4,6 +4,7 @@ import java.util.PriorityQueue;
  * @lc app=leetcode id=23 lang=java
  *
  * [23] Merge k Sorted Lists
+ * [head][devide-and-conquer][sort]
  */
 
 // @lc code=start

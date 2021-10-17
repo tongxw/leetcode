@@ -7,30 +7,27 @@
 // @lc code=start
 class Solution {
     public int mySqrt(int x) {
+        if (x == 0) {
+            return 0;
+        }
+        if (x == 1) {
+            return 1;
+        }
+
         int left = 0;
         int right = x;
         while (left <= right) {
-            int mid = (left + right) / 2;
-            if ((long) mid * mid == x) {
+            int mid = left + (right - left) / 2;
+            if (mid == x / mid) {
                 return mid;
-            } else if ((long) mid * mid < x) {
-                left = mid + 1;
-            } else {
+            } else if (mid > x / mid) {
                 right = mid - 1;
+            } else {
+                left = mid + 1;
             }
-
-            // int div = (mid == 0 ? 0 : x / mid); // need to check: x != 0
-            // if (mid == div) {
-            //     return mid;
-            // } else if (mid < div) {
-            //     left = mid + 1;
-            // } else {
-            //     right = mid - 1;
-            // }
         }
 
-        // 2147395599
-        return left - 1;
+        return right;
     }
 }
 // class Solution {

@@ -3,16 +3,52 @@
  * @lc app=leetcode id=5 lang=java
  *
  * [5] Longest Palindromic Substring
+ * [array]
  */
 
 // @lc code=start
 class Solution {
     public String longestPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        // expand from the center solution
+        int start = 0;
+        int end = 0;
+        for (int i=0; i<s.length(); i++) {
+            // for each i, we need to expand from i to leftmost and rightmost until the substring is not a palindrome
+            // remember that the palindrome string can have even or odd length
+            int len1 = expandFrom(s, i, i);
+            int len2 = expandFrom(s, i, i+1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2; // nice !!!
+                end = i + len / 2;
+            }
+
+        }
+
+        return s.substring(start, end+1);
+    }
+
+    private int expandFrom(String s, int left, int right) {
+        while (left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+
+        // (right - 1) - (left + 1) + 1;
+        return right - left - 1;
+    }
+
+    private String dp(String s) {
         // dp(i, j): if s.subString(i, j+1) is palindrome
         // dp(i, j) = dp(i+1, j-1) and s[i] == s[j]
         // dp(i, i) is true
         // dp(i, i+1) = (s[i] == s[i+1])
         // get the max len from all dp(i, j) == true
+
         int len = s.length();
         if (len < 2) {
             return s;
@@ -55,19 +91,10 @@ class Solution {
 
         // ""bb""
         return s.substring(begin, begin + maxLen);
-
     }
 
-    // private boolean dp(String s, int start, int end) {
-    //     if (start == end) {
-    //         return true;
-    //     }
-
-
-    //     return dp(s, start + 1, end - 1) && s.charAt(start) == s.charAt(end);
-    // }
-
     private String slidingWindowWrongSolution(String s) {
+        // not right
         int l=0;
         int maxLen = 0;
         int ansL = 0;
