@@ -2,6 +2,7 @@
  * @lc app=leetcode id=1004 lang=java
  *
  * [1004] Max Consecutive Ones III
+ * [sliding window][2pointers]
  */
 
 // @lc code=start

@@ -8,7 +8,7 @@
 // @lc code=start
 class Solution {
     public int[] sortArray(int[] nums) {
-        return quickSortArray(nums);
+        return bubbleSort(nums);
     }
 
     private int[] quickSortArray(int[] nums) {
@@ -103,6 +103,19 @@ class Solution {
         for (int k=start; k<=end; k++) {
             nums[k] = temp[idx++];
         }
+    }
+
+    private int[] bubbleSort(int[] nums) {
+        int n = nums.length;
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n-i-1; j++) {
+                if (nums[j] > nums[j+1]) {
+                    swap(nums, j, j+1);
+                }
+            }
+        }
+
+        return nums;
     }
 }
 // @lc code=end
