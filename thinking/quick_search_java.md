@@ -5,6 +5,13 @@
   Map<Integer, Integer>[] maps = new HashMap[n];
   String[] arr = list.toArray(new String[0]);
   int[] primitive = list.stream().mapToInt(Integer::intValue).toArray();
+  Arrays.sort(arr, Collections.reverseOrder());
+  Arrays.sort(arr, new Comparator<int[]>() {
+      @Override
+      public int compare(int[] o1, int[] o2) {
+          return ((Integer) o2[0]).compareTo(o1[0]);
+      }
+  });
 ```
 #### HashMap
 ```java
@@ -36,6 +43,7 @@
 ```java
 str.replace("a", "").replaceFirst("ab", "").replaceAll("([a-z])", "");
 str.length().charAt().toCharArray().valueOf().indexOf().lastIndexOf().substring();
+String.value(char[]);new String(char[]);
 ```
 #### Numbers
 ```java
