@@ -5,6 +5,10 @@ import java.util.LinkedList;
  * @lc app=leetcode id=146 lang=java
  *
  * [146] LRU Cache
+ * [design]
+ * 这道题最重要的一个思路就是，private HashMap<Integer, ListNode> map;
+ * Hashmap的value，存的是ListNode。而ListNode里面又是key-value pair。
+ * 用这种方式把两种数据结构关联起来，才方便在put/get时同时操作
  */
 
 // @lc code=start
@@ -26,11 +30,11 @@ class LRUCache {
     private int size = 0;
     private ListNode head; // recent used: head.next
     private ListNode tail; // least used: tail.prev
-    private HashMap<Integer, ListNode> map; // { node->key : node }
+    private Map<Integer, ListNode> map; // { node->key : node }
 
     public LRUCache(int capacity) {
         this.cap = capacity;
-        map = new HashMap<Integer, ListNode>();
+        map = new HashMap<>();
         head = new ListNode(-1, 0);
         tail = new ListNode(-1, 0);
         head.next = tail;
