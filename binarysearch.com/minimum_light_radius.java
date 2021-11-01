@@ -1,6 +1,7 @@
 import java.util.*;
 
 // https://binarysearch.com/problems/Minimum-Light-Radius
+// 这题的关键是想清楚，是对直径进行二分查找
 
 class Solution {
     public double solve(int[] nums) 

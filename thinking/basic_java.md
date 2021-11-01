@@ -42,6 +42,15 @@ Create a hashmap with initial values
       }
   };
 ```
+TreeSet
+1. TreeSet是有序的Set集合，因此支持add、remove、get等方法。
+2. 和NavigableSet一样，TreeSet的导航方法大致可以区分为两类，一类时提供元素项的导航方法，返回某个元素；另一类时提供集合的导航方法，返回某个集合。
+lower、floor、ceiling 和 higher 分别返回小于、小于等于、大于等于、大于给定元素的元素，如果不存在这样的元素，则返回 null。
+```java
+for(Iterator iter = set.iterator(); iter.hasNext(); ) { 
+    iter.next();
+}   
+```
 
 ## 栈 Stack
 Java的栈操作最好用Deque来实现。

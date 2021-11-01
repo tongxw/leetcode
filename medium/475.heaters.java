@@ -4,55 +4,56 @@ import java.util.Arrays;
  * @lc app=leetcode id=475 lang=java
  *
  * [475] Heaters
+ * [binary-search][2pointers]
  */
 
 // @lc code=start
 class Solution {
     public int findRadius(int[] houses, int[] heaters) {
         return linearSearch(houses, heaters);
-        // Arrays.sort(houses);
-        // Arrays.sort(heaters);
-
-        // int l = houses[0];
-        // int r = houses[houses.length - 1];
-
-        // int ans = r;
-        // int count = 0;
-        // while (l < r && count < 20) {
-        //     int mid = l + (r - l) / 2;
-        //     // System.out.println("L: " + l + " R: " + r + " Mid: " + mid);
-        //     if (isValidRadius(mid, houses, heaters)) {
-        //         ans = Math.min(ans, mid);
-        //         r = mid;
-        //     } else {
-        //         l = mid;
-        //     }
-        //     count++;
-        // }
-
-        // // [1,5]\n[2]
-        // return ans;
     }
 
-    // private boolean isValidRadius(int radius, int[] houses, int[] heaters) {
-    //     for (int house: houses) {
-    //         int start = house - radius > 0 ? house - radius : 0;
-    //         int end = house + radius;
-    //         boolean found = false;
-    //         for (int heater : heaters) {
-    //             if (heater >= start && heater <= end) {
-    //                 found = true;
-    //                 break;
-    //             }
-    //         }
+    public int binarySearch(int[] houses, int[] heaters) {
+        // key thinking: binary-search for heater's warm radius
+        Arrays.sort(houses);
+        Arrays.sort(heaters);
+        
+        int rMin = 0;
+        int rMax = Math.max(houses[houses.length - 1], heaters[heaters.length - 1]); // 重要：区间取大不取小！
+        
+        int ans = 0;
+        while (rMin <= rMax) {
+            int mid = rMin + (rMax - rMin) / 2;
+            if (possible(houses, heaters, mid)) {
+                ans = mid;
+                rMax = mid - 1;
+            } else {
+                rMin = mid + 1;
+            }
+        }
 
-    //         if (!found) {
-    //             return false;
-    //         }
-    //     }
+        return ans;
+    }
 
-    //     return true;
-    // }
+    private boolean possible(int[] houses, int[] heaters, int len) {
+        int m = houses.length;
+        int n = heaters.length;
+        int index = 0;
+
+        // two-pointers tc O(m + n)
+        for(int i = 0 ; i < n ; i++){
+            //针对每个heaters计算
+            long l = heaters[i]-len , r = heaters[i]+len;
+            //计算能否完全覆盖房屋
+            while(index < m && (long)houses[index] >= l && (long)houses[index] <= r){
+                index++;
+            }
+            // 所有房屋都覆盖完毕了
+            if(index == m) return true;
+        }
+        return false;
+
+    }
 
     private int linearSearch(int[] houses, int[] heaters) {
         Arrays.sort(houses);
