@@ -51,4 +51,10 @@ Integer.MAX_VALUE;Integer.MIN_VALUE;
 Integer.parseInt(str);Integer.valueOf(str);String.valueOf(ivar);Integer.toString(ivar2);String.format("%d",num);
 Double.parseDouble(str);Double.valueOf(str);String.valueOf(dnum);Double.toString(dnum);String.format("%f", dnum);
 ```
+```java
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+}
 ```
