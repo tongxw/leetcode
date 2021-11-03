@@ -4,34 +4,35 @@ import java.util.HashMap;
  * @lc app=leetcode id=496 lang=java
  *
  * [496] Next Greater Element I
+ * [stack][monostack]
+ * 这道题的提示信息是求下一个最大的元素
  */
 
 // @lc code=start
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int[] ans = new int[nums1.length];
-        for (int i=0; i<ans.length; i++) {
-            ans[i] = -1;
-        }
-
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i=0; i<nums1.length; i++) {
-            map.put(nums1[i], i);
-        }
-
-        Stack<Integer> stack = new Stack<>();
-        for (int i=0; i<nums2.length; i++) {
-            while (!stack.isEmpty() && stack.peek() < nums2[i]) {
+        // hashmap to save: nums2[i] -> next greater of nums2[i]
+        // we can use a monostack to track the next greater of the num
+        // monostack: from top to bottom, the number increases
+        // when iterating the nums2 array, if current number is <= stack.top(), push the current number to the stack;
+        // if the current number is greater than stack.top(), pop the stack until current number <= stack.top(), and
+        // this current number is the next greater number of all popped num
+        Map<Integer, Integer> map = new HashMap<>(); // num -> next greater of num
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int num : nums2) {
+            while (!stack.isEmpty() && num > stack.peek()) {
                 int top = stack.pop();
-                if (map.containsKey(top)) {
-                    ans[map.get(top)] = nums2[i];
-                }
+                map.put(top, num);
             }
-
-            stack.push(nums2[i]);
+            
+            stack.push(num);
         }
         
-
+        int[] ans = new int[nums1.length];
+        for (int i=0; i<nums1.length; i++) {
+            ans[i] = map.getOrDefault(nums1[i], -1);
+        }
+        
         return ans;
     }
 

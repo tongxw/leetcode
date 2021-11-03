@@ -274,6 +274,18 @@ String strNew = str.replaceFirst("ab", ""); // strNew is 'cdDCBA123'
 String str = "abcdDCBA123";
 String strNew = str.replaceAll("([a-z])", ""); // strNew is 'DCBA123'
 ```
+Characters
+```java
+Character.isLetter('A'); Character.isDigit('0'); Character.isWhitespace(' '); Character.isUpperCase('A'); Character.isLowerCase('a');
+Character.toLowerCase('A'); Character.toUpperCase('a');Character.toString('x');
+```
+
+## 随机数
+```java
+ Random rand = new Random();
+ int randInt = rand.nextInt(1000);rand.nextInt(1000); // Generate random integers in range 0 to 999
+ double randDouble = rand.nextDouble(); // Generate Random doubles
+```
 
 ## 类型转换
 最大值 最小值
