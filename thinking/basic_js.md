@@ -234,7 +234,20 @@ Split a string into an array of substrings:
 let str = "How are you doing today?";
 const myArr = str.split(" ");
 ```
-
+String to number parseInt(Value, radix)
+```js
+parseInt("100",10) = 100
+parseInt("8",8) = NaN // 8进制里没有8
+parseInt("15",8) = 13 // 8 + 5
+parseInt("16",16) = 22
+parseInt(" 100 ") = 100
+parseInt("0x16") = 22 // 字符串0x开头默认16进制
+parseFloat(" 100 ") = 100
+parseFloat("2018@geeksforgeeks") = 2018
+parseFloat("geeksforgeeks@2018") = NaN
+parseFloat("3.14") = 3.14
+parseFloat("22 7 2018") = 22
+```
 ## Math
 divide integers
 ```js

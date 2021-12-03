@@ -4,7 +4,7 @@
   List<List<Integer>> arr = new ArrayList<>();
   Map<Integer, Integer>[] maps = new HashMap[n];
   String[] arr = list.toArray(new String[0]);
-  int[] primitive = list.stream().mapToInt(Integer::intValue).toArray();
+  重要！！int[] primitive = list.stream().mapToInt(i -> i).toArray();
   int sum =  Arrays.stream(array).sum();
   int avg = Arrays.stream(array).average().orElse(Double.NaN);
   Arrays.sort(arr, Collections.reverseOrder());
@@ -14,8 +14,10 @@
           return ((Integer) o2[0]).compareTo(o1[0]);
       }
   });
+  Arrays.copyOf(array, <length>=newLength).copyOfRange(array, <start>=1, <end>=4)
   List<Integer> list = Arrays.asList(1, 2, 3, 4);
   List<T> list = new ArrayList<>(HashSet);
+  list.addAll(otherList)
   Collections.sort(List<T>, (a, b) -> {});
   Collections.reverse().swap(List<T>, i, j).fill(List<T>, T obj).min().max()
 ```
@@ -48,15 +50,16 @@
 ```
 #### Strings
 ```java
-str.replace("a", "").replaceFirst("ab", "").replaceAll("([a-z])", "");
-str.length().charAt().toCharArray().valueOf().indexOf().lastIndexOf().substring();
-String.value(char[]);new String(char[]);
+str.replace("a", "").replaceFirst("ab", "").replaceAll("([a-z])", "").compareTo(str2);
+str.length().charAt().toCharArray().valueOf().indexOf().lastIndexOf().substring().split(" ", 2);
+String.valueOf(char[]);new String(char[]);
 Character.isLetter('A'); Character.isDigit('0'); Character.isWhitespace(' '); 
 Character.isUpperCase('A'); Character.isLowerCase('a');
 Character.toLowerCase('A'); Character.toUpperCase('a');Character.toString('x');
-StringBuilder str.append("GFG").reverse().setCharAt(0, 'a').delete(1, 5).deleteCharAt(1)
+StringBuilder str.append("GFG").insert(0, 'c').reverse().setCharAt(0, 'a').delete(start=1, end=5).deleteCharAt(1)
 String.format("%d:%02d", h, m).valueOf(data, 6, 8)/* from 0, len=8*/.valueOf(data, 0, 5); /* from 0 to 5 */
 String.join(",", Arrays.asList("foo", "bar", "baz")); // "foo,bar,baz"
+s.chars().filter(c -> Character.isLetterOrDigit(c)).mapToObj(c -> Character.toLowerCase((char) c)).forEach(builder::append);
 ```
 #### Numbers
 ```java
@@ -68,5 +71,23 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+}
+```
+### 重载类函数
+```java
+map = new LinkedHashMap(capacity, DEFAULT_LOAD_FACTOR, true) {
+  @Override
+  protected boolean removeEldestEntry(Map.Entry eldest) {
+      return size() > MAX_CACHE_SIZE;
+  }
+};
+```
+### 输入
+```java
+public static void main(String[] args) throws Exception {
+    Scanner cin = new Scanner(System.in);
+    var a = cin.nextInt();
+    var b = cin.nextInt();
+    System.out.println(a + b);
 }
 ```
