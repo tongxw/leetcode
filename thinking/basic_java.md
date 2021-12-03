@@ -45,7 +45,9 @@ Create a hashmap with initial values
 TreeSet
 1. TreeSet是有序的Set集合，因此支持add、remove、get等方法。
 2. 和NavigableSet一样，TreeSet的导航方法大致可以区分为两类，一类时提供元素项的导航方法，返回某个元素；另一类时提供集合的导航方法，返回某个集合。
-lower、floor、ceiling 和 higher 分别返回小于、小于等于、大于等于、大于给定元素的元素，如果不存在这样的元素，则返回 null。
+3. lower()、floor()、ceiling() 和 higher() 分别返回小于、小于等于、大于等于、大于给定元素的元素，如果不存在这样的元素，则返回 null。
+4. first()返回第一个元素，last()返回最后一个
+5. 自定义比较方法 new TreeSet<String>((str1, str2) -> {});
 ```java
 for(Iterator iter = set.iterator(); iter.hasNext(); ) { 
     iter.next();
