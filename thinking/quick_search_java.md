@@ -20,8 +20,9 @@
   list.addAll(otherList)
   Collections.sort(List<T>, (a, b) -> {});
   Collections.reverse().swap(List<T>, i, j).fill(List<T>, T obj).min().max()
+  List<int[]> ans.toArray(new int[ans.size()][]) = int[][]
 ```
-#### HashMap & Pair
+#### HashMap & Pair & TreeSet
 ```java
   Map<String, String> brackets = new HashMap<String, String>() {
       {
@@ -33,6 +34,7 @@
   for (Map.Entry<String,String> entry : gfg.entrySet()); entry.getKey(); entry.getValue();
   for (String name : gfg.keySet()); for (String url : gfg.values())
   Pair<Integer, String> pair = new Pair<>(1, "One"); pair.getKey(); pair.getValue();
+  [23, 25, 35, 40] treeSet.floor(26) -> 25; treeSet.ceiling(33) -> 35;
 ```
 #### Queue and Deque(Stack)
 ```java
