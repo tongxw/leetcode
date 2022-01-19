@@ -19,6 +19,12 @@
   Collections.sort(List<T>, (a, b) -> {});
   Collections.reverse().swap(List<T>, i, j).fill(List<T>, T obj).min().max()
   List<int[]> ans.toArray(new int[ans.size()][]) = int[][]
+
+  int[] copiedArray = Arrays.copyOf(array, newLength);
+  int[] copiedArray = Arrays.copyOfRange(array, 1, 4);
+  int[] copiedArray = array.clone();
+  String[] copiedArray = Arrays.stream(strArray).toArray(String[]::new);
+
 ```
 #### HashMap & Pair & TreeSet
 ```java
