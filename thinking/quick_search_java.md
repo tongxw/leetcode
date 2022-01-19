@@ -14,7 +14,6 @@
           return ((Integer) o2[0]).compareTo(o1[0]);
       }
   });
-  Arrays.copyOf(array, <length>=newLength).copyOfRange(array, <start>=1, <end>=4)
   List<Integer> list = Arrays.asList(1, 2, 3, 4);
   List<T> list = new ArrayList<>(HashSet);
   list.addAll(otherList)
@@ -26,7 +25,6 @@
   int[] copiedArray = Arrays.copyOfRange(array, 1, 4);
   int[] copiedArray = array.clone();
   String[] copiedArray = Arrays.stream(strArray).toArray(String[]::new);
-
 ```
 #### HashMap & Pair & TreeSet
 ```java
