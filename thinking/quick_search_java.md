@@ -7,6 +7,8 @@
   重要！！int[] primitive = list.stream().mapToInt(i -> i).toArray();
   int sum =  Arrays.stream(array).sum();
   int avg = Arrays.stream(array).average().orElse(Double.NaN);
+  Arrays.stream(integersArray).min().max().getAsInt();
+  Arrays.stream(fastCars).max(Comparator.comparing(Car::getTopSpeed)).orElseThrow(NoSuchElementException::new);
   Arrays.sort(arr, Collections.reverseOrder());
   Arrays.sort(arr, new Comparator<int[]>() {
       @Override
