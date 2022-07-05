@@ -14,15 +14,16 @@
           return ((Integer) o2[0]).compareTo(o1[0]);
       }
   });
+  Arrays.sort(strings, Comparator.reverseOrder());
   Arrays.copyOf(array, <length>=newLength).copyOfRange(array, <start>=1, <end>=4)
   List<Integer> list = Arrays.asList(1, 2, 3, 4);
   List<T> list = new ArrayList<>(HashSet);
-  list.addAll(otherList)
+  list.addAll(otherList).add(0, Obj) LinkedList.addFirst().addLast()
   Collections.sort(List<T>, (a, b) -> {});
   Collections.reverse().swap(List<T>, i, j).fill(List<T>, T obj).min().max()
   List<int[]> ans.toArray(new int[ans.size()][]) = int[][]
 ```
-#### HashMap & Pair & TreeSet
+#### HashMap & Pair & TreeSet & TreeMap
 ```java
   Map<String, String> brackets = new HashMap<String, String>() {
       {
@@ -34,11 +35,13 @@
   for (Map.Entry<String,String> entry : gfg.entrySet()); entry.getKey(); entry.getValue();
   for (String name : gfg.keySet()); for (String url : gfg.values())
   Pair<Integer, String> pair = new Pair<>(1, "One"); pair.getKey(); pair.getValue();
-  [23, 25, 35, 40] treeSet.floor(26) -> 25; treeSet.ceiling(33) -> 35;
+  TreeSet.floor(<=26).lower(<26); TreeSet.ceiling(>=33).higher(>33).first().last().pollFirst().pollLast()
+  TreeMap.floorKey().ceilingKey().floorEntry(<=26).lowerEntry(<26).ceilingEntry(>=33).higherEntry(>33).lastKey().firstKey().lastEntry().firstEntry()
+  TreeMap.subMap(15, 30) -> the part or portion of the map from key 15 to 30
 ```
 #### Queue and Deque(Stack)
 ```java
-  Deque<String> deque = new LinkedList<String>() = new ArrayDeque<String>();
+  Deque<String> deque = new LinkedList<String>() = n ew ArrayDeque<String>();
   deque.add("Element 1 (Tail)").addFirst("Element 2 (Head)").addLast("Element 3 (Tail)");
   deque.push("Element 4 (Head)").offer("Element 5 (Tail)").offerFirst("Element 6 (Head)");
   deque.removeFirst().removeLast().size();
@@ -66,7 +69,7 @@ s.chars().filter(c -> Character.isLetterOrDigit(c)).mapToObj(c -> Character.toLo
 #### Numbers
 ```java
 Integer.MAX_VALUE;Integer.MIN_VALUE;
-Integer.bitCount(8) = 3
+Integer.bitCount(8) = 3 // NumberFormatException 
 Integer.parseInt(str);Integer.valueOf(str);String.valueOf(ivar);Integer.toString(ivar2);String.format("%d",num);
 Double.parseDouble(str);Double.valueOf(str);String.valueOf(dnum);Double.toString(dnum);String.format("%f", dnum);
 public class Application {
